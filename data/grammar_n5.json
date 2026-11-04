@@ -9,12 +9,17 @@
         "status": "unlocked",
         "theory": {
           "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Sust/Adj] <span class='color-verbo'>です</span>",
-          "explanation": "La partícula は (wa) marca de quién estamos hablando. El verbo です (desu) equivale a 'ser' y siempre va al final. Para decir 'NO ser', el bloque です se convierte entero en ではありません (dewa arimasen). Fíjate en que sigue usando la partícula wa.",
+          "explanation": "La partícula は (wa) marca de quién estamos hablando. El verbo です (desu) equivale a 'ser' y siempre va al final. <br><br><b>La Negación:</b> Para decir 'NO ser', el bloque <b>です</b> se convierte entero en <b>ではありません</b> (dewa arimasen). Fíjate en que sigue usando la letra は al principio, pero aquí forma parte de la palabra 'dewa'.",
           "examples": [
             {
               "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。",
               "romaji": "Watashi wa gakusei desu.",
               "es": "Yo soy estudiante."
+            },
+            {
+              "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>犬<rt>いぬ</rt></ruby>ではありません。",
+              "romaji": "Watashi wa inu dewa arimasen.",
+              "es": "Yo no soy un perro."
             }
           ]
         },
@@ -24,8 +29,39 @@
                 "es": "Yo soy estudiante.",
                 "expected": ["私", "は", "学生", "です"],
                 "distractors": ["が", "を"]
+            },
+            {
+                "type": "cloze",
+                "es": "El Sr. Tanaka es profesor.",
+                "ja_template": "田中さん [?] 先生 です。",
+                "expected": "は",
+                "distractors": ["が", "を", "に", "で"]
+            },
+            {
+                "type": "classifier",
+                "instruction": "Clasifica si la frase es una afirmación o una negación",
+                "categories": ["Afirmación (desu)", "Negación (dewa arimasen)"],
+                "items": [
+                    { "word": "学生 です", "expected": "Afirmación (desu)", "rule": "Termina en です, por lo tanto está afirmando el estado." },
+                    { "word": "先生 ではありません", "expected": "Negación (dewa arimasen)", "rule": "Termina en ではありません, es la negación formal." },
+                    { "word": "日本人 です", "expected": "Afirmación (desu)", "rule": "Usa la cópula afirmativa です." }
+                ]
+            },
+            {
+                "type": "cloze",
+                "es": "Yo no soy estudiante.",
+                "ja_template": "私 は 学生 [?]。",
+                "expected": "ではありません",
+                "distractors": ["です", "ません", "ではない"]
             }
         ]
+      },
+      {
+        "theme_id": "g_tema_1_2",
+        "theme_title": "Adjetivos tipo I (い)",
+        "status": "locked",
+        "theory": {},
+        "exercises": []
       }
     ]
   },
@@ -36,7 +72,7 @@
       {
         "theme_id": "g_tema_2_1",
         "theme_title": "Los 3 Grupos de Verbos",
-        "status": "unlocked",
+        "status": "locked",
         "theory": {
           "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
           "explanation": "Para poder conjugar en japonés, primero debes saber a qué grupo pertenece el verbo en su forma de diccionario. G1 (Godan) termina en cualquier sílaba 'u'. G2 (Ichidan) termina siempre en 'iru' o 'eru'. G3 (Irregulares) solo son dos: する (hacer) y くる (venir).",
