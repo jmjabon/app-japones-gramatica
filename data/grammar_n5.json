@@ -1,0 +1,37 @@
+[
+  {
+    "block_id": "g_block_01",
+    "block_title": "Bloque 1: Fundamentos y Estados",
+    "themes": [
+      {
+        "theme_id": "g_tema_1_1",
+        "theme_title": "La Cópula Base",
+        "status": "unlocked",
+        "theory": {
+          "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Sust/Adj] <span class='color-verbo'>です</span>",
+          "explanation": "La partícula は (wa) marca de quién estamos hablando. El verbo です (desu) se coloca siempre al final y equivale al verbo 'ser' o para indicar un estado formal.",
+          "examples": [
+            {
+              "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。",
+              "romaji": "Watashi wa gakusei desu.",
+              "es": "Yo soy estudiante."
+            },
+            {
+              "ja": "<ruby>犬<rt>いぬ</rt></ruby>ではありません。",
+              "romaji": "Inu dewa arimasen.",
+              "es": "No es un perro."
+            }
+          ]
+        },
+        "exercises": []
+      },
+      {
+        "theme_id": "g_tema_1_2",
+        "theme_title": "Adjetivos tipo I (い)",
+        "status": "locked",
+        "theory": {},
+        "exercises": []
+      }
+    ]
+  }
+]
