@@ -2,6 +2,9 @@ import { loadProgress, toggleBookmark, exportProgress, importProgress } from './
 
 let appState = loadProgress();
 let grammarData = [];
+// Variables para controlar el estado del ejercicio actual
+let currentExercises = [];
+let currentExIndex = 0;
 
 const initUI = () => {
     lucide.createIcons();
@@ -106,7 +109,8 @@ const renderGuideMode = (theme) => {
                     <i data-lucide="function-square" class="w-32 h-32 text-white"></i>
                 </div>
                 <h3 class="text-indigo-200 font-bold text-xs uppercase tracking-widest mb-4 relative z-10">Fórmula Estructural</h3>
-                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl text-xl md:text-2xl tracking-wide relative z-10">
+                <!-- CORRECCIÓN DE CONTRASTE: Fondo blanco en lugar de semitransparente -->
+                <div class="bg-white shadow-inner p-5 rounded-2xl text-xl md:text-2xl tracking-wide relative z-10">
                     ${theme.theory.formula}
                 </div>
             </section>
@@ -145,7 +149,232 @@ const renderGuideMode = (theme) => {
     });
 
     document.getElementById('btn-start-practice').addEventListener('click', () => {
-        alert('El módulo de práctica (Andamiaje y Clasificador) se implementará en la siguiente fase.');
+        if (!theme.exercises || theme.exercises.length === 0) {
+            alert('Aún no hay ejercicios configurados para este tema.');
+            return;
+        }
+        currentExercises = theme.exercises;
+        currentExIndex = 0;
+        renderExercise(theme);
+    });
+};
+
+// --- MÓDULO DE PRÁCTICA (ANDAMIAJE) ---
+const renderExercise = (theme) => {
+    // Si ya completó todos los ejercicios de este tema, vuelve a la teoría
+    if (currentExIndex >= currentExercises.length) {
+        alert("¡Práctica completada con éxito!");
+        return renderGuideMode(theme); 
+    }
+
+    const ex = currentExercises[currentExIndex];
+
+    // Enrutador de interfaces según el JSON
+    if (ex.type === 'scramble') {
+        renderScrambleExercise(theme, ex); // Puzzle de orden gramatical
+    } else if (ex.type === 'cloze') {
+        renderClozeExercise(theme, ex);    // Tiro al blanco de partículas
+    } else if (ex.type === 'classifier') {
+        renderClassifierExercise(theme, ex); // Tinder Gramatical (Clasificador Rápido)
+    } else if (ex.type === 'forge') {
+        renderForgeExercise(theme, ex);      // Forja de Conjugación (Slot & Filler)
+    } else if (ex.type === 'dictation') {
+        renderDictationExercise(theme, ex);  // Micro-Dictado Gramatical
+    }
+};
+
+const renderScrambleExercise = (theme, ex) => {
+    // Preparar fichas: esperadas + distractores, barajadas
+    let tiles = [...ex.expected];
+    if (ex.distractors) tiles = tiles.concat(ex.distractors);
+    tiles.sort(() => Math.random() - 0.5);
+
+    document.getElementById('app-view').innerHTML = `
+        <div class="fade-in max-w-xl mx-auto w-full pt-4 pb-24 flex flex-col h-[85vh]">
+            
+            <header class="flex items-center justify-between mb-8 px-2">
+                <button id="btn-quit-ex" class="p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm"><i data-lucide="x"></i></button>
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Paso 1: Puzzle Estructural</span>
+                <span class="text-xs font-mono font-bold text-slate-400">${currentExIndex + 1}/${currentExercises.length}</span>
+            </header>
+
+            <div class="text-center mb-8 flex-grow">
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Traduce al Japonés</p>
+                <h2 class="text-2xl font-bold text-slate-800">${ex.es}</h2>
+            </div>
+
+            <!-- Zona de construcción -->
+            <div id="drop-zone" class="min-h-[80px] bg-white border-2 border-dashed border-slate-300 rounded-2xl p-4 mb-6 flex flex-wrap gap-2 items-center justify-center">
+                <!-- Las fichas seleccionadas irán aquí -->
+            </div>
+
+            <!-- Fichas disponibles -->
+            <div id="tile-bank" class="flex flex-wrap gap-2 justify-center mb-8">
+                ${tiles.map((tile, i) => `
+                    <button class="scramble-tile bg-white border border-slate-200 shadow-sm rounded-xl py-3 px-5 text-xl font-bold text-slate-800 active:scale-95 transition-transform" data-word="${tile}">
+                        ${tile}
+                    </button>
+                `).join('')}
+            </div>
+
+            <button id="btn-check-ex" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-md hover:bg-slate-800 active:scale-95 transition-all opacity-50 pointer-events-none">
+                Comprobar
+            </button>
+            
+            <!-- Panel flotante de error (oculto por defecto) -->
+            <div id="error-panel" class="fixed bottom-0 left-0 w-full bg-rose-50 border-t-2 border-rose-500 p-6 transform translate-y-full transition-transform duration-300 shadow-2xl z-50 rounded-t-3xl max-w-3xl mx-auto right-0">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-bold text-rose-800 text-lg flex items-center gap-2"><i data-lucide="alert-circle" class="w-5 h-5"></i> Orden incorrecto</h3>
+                        <p class="text-rose-600 text-sm mt-1">Recuerda el orden Estricto: Sujeto は Objeto Verbo</p>
+                    </div>
+                    <button id="btn-close-error" class="p-2 bg-rose-100 text-rose-500 rounded-full hover:bg-rose-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+
+    document.getElementById('btn-quit-ex').addEventListener('click', () => renderGuideMode(theme));
+    
+    const dropZone = document.getElementById('drop-zone');
+    const tileBank = document.getElementById('tile-bank');
+    const btnCheck = document.getElementById('btn-check-ex');
+    const errorPanel = document.getElementById('error-panel');
+
+    // Lógica de mover fichas
+    document.querySelectorAll('.scramble-tile').forEach(tile => {
+        tile.addEventListener('click', function() {
+            if (this.parentElement === tileBank) {
+                dropZone.appendChild(this);
+            } else {
+                tileBank.appendChild(this);
+            }
+            
+            // Habilitar botón comprobar si hay fichas en dropZone
+            if (dropZone.children.length > 0) {
+                btnCheck.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                btnCheck.classList.add('opacity-50', 'pointer-events-none');
+            }
+        });
+    });
+
+    document.getElementById('btn-close-error').addEventListener('click', () => {
+        errorPanel.classList.add('translate-y-full');
+    });
+
+    btnCheck.addEventListener('click', () => {
+        // Recopilar respuesta actual
+        const currentAnswer = Array.from(dropZone.children).map(t => t.dataset.word).join('');
+        const expectedAnswer = ex.expected.join('');
+
+        if (currentAnswer === expectedAnswer) {
+            btnCheck.classList.remove('bg-slate-900', 'hover:bg-slate-800');
+            btnCheck.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
+            btnCheck.innerHTML = '<i data-lucide="check-circle" class="w-6 h-6 inline mr-2"></i> ¡Correcto!';
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                currentExIndex++;
+                renderExercise(theme);
+            }, 1200);
+        } else {
+            errorPanel.classList.remove('translate-y-full');
+            // Devolver las fichas incorrectas al banco para forzar a pensar (castigo leve)
+            while (dropZone.firstChild) {
+                tileBank.appendChild(dropZone.firstChild);
+            }
+            btnCheck.classList.add('opacity-50', 'pointer-events-none');
+        }
+    });
+};
+
+const renderClozeExercise = (theme, ex) => {
+    // Barajar opciones
+    let options = [ex.expected, ...ex.distractors].sort(() => Math.random() - 0.5);
+
+    // Preparar el texto con el hueco
+    const jaText = ex.ja_template.replace('[?]', `<span class="inline-block min-w-[3rem] border-b-2 border-dashed border-indigo-300 mx-1 px-2 text-center text-indigo-500 font-bold bg-indigo-50/50 rounded-t">___</span>`);
+
+    document.getElementById('app-view').innerHTML = `
+        <div class="fade-in max-w-xl mx-auto w-full pt-4 pb-24 flex flex-col h-[85vh]">
+            
+            <header class="flex items-center justify-between mb-8 px-2">
+                <button id="btn-quit-ex" class="p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm"><i data-lucide="x"></i></button>
+                <span class="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full uppercase tracking-wider">Paso 3: Hueco Crítico</span>
+                <span class="text-xs font-mono font-bold text-slate-400">${currentExIndex + 1}/${currentExercises.length}</span>
+            </header>
+
+            <div class="text-center mb-8">
+                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Completa la Partícula</p>
+                <h2 class="es-text text-lg font-medium text-slate-600 mb-6">${ex.es}</h2>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-3xl leading-relaxed">
+                    ${jaText}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-auto mb-8" id="cloze-options">
+                ${options.map(opt => `
+                    <button class="cloze-btn bg-white border-2 border-slate-200 py-6 rounded-2xl text-2xl font-bold text-slate-800 shadow-sm hover:border-indigo-400 active:scale-95 transition-all" data-ans="${opt}">
+                        ${opt}
+                    </button>
+                `).join('')}
+            </div>
+            
+            <!-- Panel flotante de error -->
+            <div id="error-panel" class="fixed bottom-0 left-0 w-full bg-rose-50 border-t-2 border-rose-500 p-6 transform translate-y-full transition-transform duration-300 shadow-2xl z-50 rounded-t-3xl max-w-3xl mx-auto right-0">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-bold text-rose-800 text-lg flex items-center gap-2"><i data-lucide="alert-circle" class="w-5 h-5"></i> Partícula Incorrecta</h3>
+                        <p class="text-rose-600 text-sm mt-1">Aunque la frase sea negativa (dewa arimasen), el tema de la frase se sigue marcando con 'wa' (は).</p>
+                    </div>
+                    <button id="btn-close-error" class="p-2 bg-rose-100 text-rose-500 rounded-full hover:bg-rose-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    `;
+    lucide.createIcons();
+
+    document.getElementById('btn-quit-ex').addEventListener('click', () => renderGuideMode(theme));
+    const errorPanel = document.getElementById('error-panel');
+    
+    document.getElementById('btn-close-error').addEventListener('click', () => {
+        errorPanel.classList.add('translate-y-full');
+    });
+
+    const clozeBtns = document.querySelectorAll('.cloze-btn');
+    clozeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            clozeBtns.forEach(b => b.disabled = true);
+            
+            if (this.dataset.ans === ex.expected) {
+                this.classList.replace('border-slate-200', 'border-emerald-500');
+                this.classList.add('bg-emerald-50', 'text-emerald-700');
+                
+                setTimeout(() => {
+                    currentExIndex++;
+                    renderExercise(theme);
+                }, 1000);
+            } else {
+                this.classList.replace('border-slate-200', 'border-rose-500');
+                this.classList.add('bg-rose-50', 'text-rose-700');
+                errorPanel.classList.remove('translate-y-full');
+                
+                // Marcar la correcta
+                const correctBtn = Array.from(clozeBtns).find(b => b.dataset.ans === ex.expected);
+                correctBtn.classList.replace('border-slate-200', 'border-emerald-500');
+                correctBtn.classList.add('bg-emerald-50');
+                
+                // Permitir reintentar reseteando estado después de ver el error
+                setTimeout(() => {
+                    clozeBtns.forEach(b => {
+                        b.disabled = false;
+                        b.className = "cloze-btn bg-white border-2 border-slate-200 py-6 rounded-2xl text-2xl font-bold text-slate-800 shadow-sm hover:border-indigo-400 active:scale-95 transition-all";
+                    });
+                }, 2500); // Dar tiempo a leer el error antes de resetear
+            }
+        });
     });
 };
 

@@ -9,7 +9,7 @@
         "status": "unlocked",
         "theory": {
           "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Sust/Adj] <span class='color-verbo'>です</span>",
-          "explanation": "La partícula は (wa) marca de quién estamos hablando. El verbo です (desu) se coloca siempre al final y equivale al verbo 'ser' o para indicar un estado formal.",
+          "explanation": "La partícula は (wa) marca de quién estamos hablando. El verbo です (desu) equivale a 'ser' y siempre va al final. Para decir 'NO ser', el bloque です se convierte entero en ではありません (dewa arimasen). Fíjate en que sigue usando la partícula wa.",
           "examples": [
             {
               "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。",
@@ -17,13 +17,27 @@
               "es": "Yo soy estudiante."
             },
             {
-              "ja": "<ruby>犬<rt>いぬ</rt></ruby>ではありません。",
-              "romaji": "Inu dewa arimasen.",
-              "es": "No es un perro."
+              "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>犬<rt>いぬ</rt></ruby>ではありません。",
+              "romaji": "Watashi wa inu dewa arimasen.",
+              "es": "Yo no soy un perro."
             }
           ]
         },
-        "exercises": []
+        "exercises": [
+            {
+                "type": "scramble",
+                "es": "Yo soy estudiante.",
+                "expected": ["私", "は", "学生", "です"],
+                "distractors": ["が", "を"]
+            },
+            {
+                "type": "cloze",
+                "es": "Yo no soy estudiante.",
+                "ja_template": "私 [?] 学生 ではありません。",
+                "expected": "は",
+                "distractors": ["が", "を", "に", "で"]
+            }
+        ]
       },
       {
         "theme_id": "g_tema_1_2",
