@@ -161,7 +161,6 @@ const renderGuideMode = (theme) => {
 
 // --- MÓDULO DE PRÁCTICA (ANDAMIAJE) ---
 const renderExercise = (theme) => {
-    // Si ya completó todos los ejercicios de este tema, vuelve a la teoría
     if (currentExIndex >= currentExercises.length) {
         alert("¡Práctica completada con éxito!");
         return renderGuideMode(theme); 
@@ -169,18 +168,104 @@ const renderExercise = (theme) => {
 
     const ex = currentExercises[currentExIndex];
 
-    // Enrutador de interfaces según el JSON
     if (ex.type === 'scramble') {
-        renderScrambleExercise(theme, ex); // Puzzle de orden gramatical
+        renderScrambleExercise(theme, ex);
     } else if (ex.type === 'cloze') {
-        renderClozeExercise(theme, ex);    // Tiro al blanco de partículas
+        renderClozeExercise(theme, ex);
     } else if (ex.type === 'classifier') {
-        renderClassifierExercise(theme, ex); // Tinder Gramatical (Clasificador Rápido)
-    } else if (ex.type === 'forge') {
-        renderForgeExercise(theme, ex);      // Forja de Conjugación (Slot & Filler)
-    } else if (ex.type === 'dictation') {
-        renderDictationExercise(theme, ex);  // Micro-Dictado Gramatical
+        renderClassifierExercise(theme, ex);
     }
+};
+
+// --- MODO CLASIFICADOR RÁPIDO (TINDER GRAMATICAL) ---
+const renderClassifierExercise = (theme, ex) => {
+    let currentItemIndex = 0;
+    
+    const renderCurrentCard = () => {
+        if (currentItemIndex >= ex.items.length) {
+            currentExIndex++; // Pasa al siguiente tipo de ejercicio (si lo hay)
+            return renderExercise(theme);
+        }
+        
+        const item = ex.items[currentItemIndex];
+        
+        document.getElementById('app-view').innerHTML = `
+            <div class="fade-in max-w-xl mx-auto w-full pt-4 pb-24 flex flex-col h-[85vh]">
+                <header class="flex items-center justify-between mb-8 px-2">
+                    <button id="btn-quit-ex" class="p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm"><i data-lucide="x"></i></button>
+                    <span class="text-xs font-bold text-pink-600 bg-pink-50 px-3 py-1 rounded-full uppercase tracking-wider">Clasificador Rápido</span>
+                    <span class="text-xs font-mono font-bold text-slate-400">${currentItemIndex + 1}/${ex.items.length}</span>
+                </header>
+
+                <div class="text-center mb-8 flex-grow flex flex-col justify-center">
+                    <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">${ex.instruction}</p>
+                    <div id="flashcard" class="bg-white py-16 px-6 rounded-[2rem] shadow-sm border-2 border-slate-200 text-3xl md:text-4xl font-extrabold text-slate-800 transition-colors duration-300">
+                        ${item.word}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-auto mb-8">
+                    ${ex.categories.map(cat => `
+                        <button class="cat-btn bg-white border-2 border-slate-200 py-4 rounded-2xl text-sm md:text-base font-bold text-slate-700 shadow-sm hover:border-indigo-400 active:scale-95 transition-all" data-cat="${cat}">
+                            ${cat}
+                        </button>
+                    `).join('')}
+                </div>
+
+                <!-- Panel de Error (Oculto) -->
+                <div id="error-panel" class="fixed bottom-0 left-0 w-full bg-rose-50 border-t-2 border-rose-500 p-6 transform translate-y-full transition-transform duration-300 shadow-2xl z-50 rounded-t-3xl max-w-3xl mx-auto right-0">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="font-bold text-rose-800 text-lg flex items-center gap-2"><i data-lucide="alert-circle" class="w-5 h-5"></i> Grupo Incorrecto</h3>
+                            <p id="error-reason" class="text-rose-700 text-sm mt-2 font-medium leading-relaxed"></p>
+                        </div>
+                        <button id="btn-close-error" class="p-2 bg-rose-100 text-rose-500 rounded-full hover:bg-rose-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        lucide.createIcons();
+
+        document.getElementById('btn-quit-ex').addEventListener('click', () => renderGuideMode(theme));
+        const errorPanel = document.getElementById('error-panel');
+        const flashcard = document.getElementById('flashcard');
+        
+        document.getElementById('btn-close-error').addEventListener('click', () => {
+            errorPanel.classList.add('translate-y-full');
+        });
+
+        // Lógica de los botones de clasificación
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Si el panel de error está visible, bloqueamos el intento hasta que lo cierre
+                if (!errorPanel.classList.contains('translate-y-full')) return;
+
+                const selectedCat = this.dataset.cat;
+                
+                if (selectedCat === item.expected) {
+                    // Correcto: Brillo verde y pasa al siguiente
+                    flashcard.classList.replace('border-slate-200', 'border-emerald-500');
+                    flashcard.classList.add('bg-emerald-50', 'text-emerald-700');
+                    
+                    setTimeout(() => {
+                        currentItemIndex++;
+                        renderCurrentCard(); 
+                    }, 600);
+                } else {
+                    // Incorrecto: Temblor, rojo y explicación
+                    flashcard.classList.add('animate-shake', 'border-rose-500', 'bg-rose-50');
+                    setTimeout(() => {
+                        flashcard.classList.remove('animate-shake', 'border-rose-500', 'bg-rose-50');
+                    }, 300);
+                    
+                    document.getElementById('error-reason').textContent = item.rule;
+                    errorPanel.classList.remove('translate-y-full');
+                }
+            });
+        });
+    };
+    
+    renderCurrentCard();
 };
 
 const renderScrambleExercise = (theme, ex) => {

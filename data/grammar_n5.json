@@ -15,11 +15,6 @@
               "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。",
               "romaji": "Watashi wa gakusei desu.",
               "es": "Yo soy estudiante."
-            },
-            {
-              "ja": "<ruby>私<rt>わたし</rt></ruby>は<ruby>犬<rt>いぬ</rt></ruby>ではありません。",
-              "romaji": "Watashi wa inu dewa arimasen.",
-              "es": "Yo no soy un perro."
             }
           ]
         },
@@ -29,22 +24,49 @@
                 "es": "Yo soy estudiante.",
                 "expected": ["私", "は", "学生", "です"],
                 "distractors": ["が", "を"]
-            },
-            {
-                "type": "cloze",
-                "es": "Yo no soy estudiante.",
-                "ja_template": "私 [?] 学生 ではありません。",
-                "expected": "は",
-                "distractors": ["が", "を", "に", "で"]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "block_id": "g_block_02",
+    "block_title": "Bloque 2: El Motor de la Acción",
+    "themes": [
       {
-        "theme_id": "g_tema_1_2",
-        "theme_title": "Adjetivos tipo I (い)",
-        "status": "locked",
-        "theory": {},
-        "exercises": []
+        "theme_id": "g_tema_2_1",
+        "theme_title": "Los 3 Grupos de Verbos",
+        "status": "unlocked",
+        "theory": {
+          "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
+          "explanation": "Para poder conjugar en japonés, primero debes saber a qué grupo pertenece el verbo en su forma de diccionario. G1 (Godan) termina en cualquier sílaba 'u'. G2 (Ichidan) termina siempre en 'iru' o 'eru'. G3 (Irregulares) solo son dos: する (hacer) y くる (venir).",
+          "examples": [
+            {
+              "ja": "<ruby>飲<rt>の</rt></ruby>む",
+              "romaji": "nomu (Termina en 'mu' -> G1)",
+              "es": "Beber"
+            },
+            {
+              "ja": "<ruby>食<rt>た</rt></ruby>べる",
+              "romaji": "taberu (Termina en 'eru' -> G2)",
+              "es": "Comer"
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "classifier",
+                "instruction": "Clasifica el verbo en su grupo correspondiente",
+                "categories": ["Grupo 1 (Godan)", "Grupo 2 (Ichidan)", "Grupo 3 (Irregular)"],
+                "items": [
+                    { "word": "行く (iku)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'ku'. No es 'iru' ni 'eru', así que es Grupo 1." },
+                    { "word": "食べる (taberu)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina con sonido 'e' seguido de 'ru' (be-ru). Es Ichidan." },
+                    { "word": "する (suru)", "expected": "Grupo 3 (Irregular)", "rule": "¡El verbo hacer es el irregular por excelencia! Pertenece al Grupo 3." },
+                    { "word": "飲む (nomu)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'mu'. Al no terminar en 'ru', es automáticamente Grupo 1." },
+                    { "word": "見る (miru)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina en sonido 'i' seguido de 'ru' (mi-ru). Es Ichidan." }
+                ]
+            }
+        ]
       }
     ]
   }

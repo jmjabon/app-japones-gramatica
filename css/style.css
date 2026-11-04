@@ -22,3 +22,11 @@ rt { font-size: 0.65em; color: #64748b; font-weight: 600; user-select: none; }
 /* Ocultar barra de scroll pero permitir scroll */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Animación de error (Sacudida) */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+.animate-shake { animation: shake 0.3s ease-in-out; }
