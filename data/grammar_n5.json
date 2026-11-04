@@ -60,8 +60,74 @@
         "theme_id": "g_tema_1_2",
         "theme_title": "Adjetivos tipo I (い)",
         "status": "locked",
-        "theory": {},
-        "exercises": []
+        "theory": {
+          "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Raíz Adj-I] <span class='color-verbo'>くない です</span>",
+          "explanation": "Los adjetivos que terminan en い (i) tienen su propia regla de conjugación. Para hacerlos negativos, quitas la 'い' final y añades 'くない' (kunai).",
+          "examples": [
+            {
+              "ja": "この<ruby>本<rt>ほん</rt></ruby>は<ruby>高<rt>たか</rt></ruby>いです。",
+              "romaji": "Kono hon wa takai desu.",
+              "es": "Este libro es caro."
+            },
+            {
+              "ja": "この<ruby>本<rt>ほん</rt></ruby>は<ruby>高<rt>たか</rt></ruby>くないです。",
+              "romaji": "Kono hon wa takakunai desu.",
+              "es": "Este libro no es caro."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "scramble",
+                "es": "El coche no es nuevo.",
+                "expected": ["車", "は", "新しくない", "です"],
+                "distractors": ["新しい", "ではありません"]
+            },
+            {
+                "type": "cloze",
+                "es": "La película no es interesante.",
+                "ja_template": "映画 は 面白[?] です。",
+                "expected": "くない",
+                "distractors": ["い", "ではない", "かった"]
+            }
+        ]
+      },
+      {
+        "theme_id": "cp_g_01",
+        "type": "checkpoint",
+        "theme_title": "Examen: Bloque 1",
+        "requires_count": 2,
+        "items": [
+           {
+                "type": "scramble",
+                "es": "El gato no es grande.",
+                "expected": ["猫", "は", "大きくない", "です"],
+                "distractors": ["大きい", "ではありません", "が"]
+            },
+            {
+                "type": "cloze",
+                "es": "Yo no soy profesor.",
+                "ja_template": "私 [?] 先生 ではありません。",
+                "expected": "は",
+                "distractors": ["が", "を", "に", "で"]
+            },
+            {
+                 "type": "reading_comprehension",
+                 "ja_text": "私の名前は田中です。学生ではありません。会社員です。私の車は新しくないですが、とても速いです。",
+                 "questions": [
+                     {
+                         "question": "¿Cuál es la profesión de Tanaka?",
+                         "options": ["Estudiante", "Profesor", "Empleado de empresa (会社員)"],
+                         "expected": "Empleado de empresa (会社員)"
+                     },
+                     {
+                         "question": "¿Cómo describe Tanaka su coche?",
+                         "options": ["Es nuevo y rápido.", "No es nuevo, pero es rápido.", "No es rápido, pero es nuevo."],
+                         "expected": "No es nuevo, pero es rápido."
+                     }
+                 ]
+            }
+        ]
       }
     ]
   },
@@ -74,35 +140,17 @@
         "theme_title": "Los 3 Grupos de Verbos",
         "status": "locked",
         "theory": {
-          "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
+           "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
           "explanation": "Para poder conjugar en japonés, primero debes saber a qué grupo pertenece el verbo en su forma de diccionario. G1 (Godan) termina en cualquier sílaba 'u'. G2 (Ichidan) termina siempre en 'iru' o 'eru'. G3 (Irregulares) solo son dos: する (hacer) y くる (venir).",
           "examples": [
             {
               "ja": "<ruby>飲<rt>の</rt></ruby>む",
               "romaji": "nomu (Termina en 'mu' -> G1)",
               "es": "Beber"
-            },
-            {
-              "ja": "<ruby>食<rt>た</rt></ruby>べる",
-              "romaji": "taberu (Termina en 'eru' -> G2)",
-              "es": "Comer"
             }
           ]
         },
-        "exercises": [
-            {
-                "type": "classifier",
-                "instruction": "Clasifica el verbo en su grupo correspondiente",
-                "categories": ["Grupo 1 (Godan)", "Grupo 2 (Ichidan)", "Grupo 3 (Irregular)"],
-                "items": [
-                    { "word": "行く (iku)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'ku'. No es 'iru' ni 'eru', así que es Grupo 1." },
-                    { "word": "食べる (taberu)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina con sonido 'e' seguido de 'ru' (be-ru). Es Ichidan." },
-                    { "word": "する (suru)", "expected": "Grupo 3 (Irregular)", "rule": "¡El verbo hacer es el irregular por excelencia! Pertenece al Grupo 3." },
-                    { "word": "飲む (nomu)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'mu'. Al no terminar en 'ru', es automáticamente Grupo 1." },
-                    { "word": "見る (miru)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina en sonido 'i' seguido de 'ru' (mi-ru). Es Ichidan." }
-                ]
-            }
-        ]
+        "exercises": []
       }
     ]
   }
