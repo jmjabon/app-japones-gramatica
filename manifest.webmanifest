@@ -1,0 +1,17 @@
+{
+  "name": "KikuNihongo Gramática",
+  "short_name": "Gramática N5",
+  "description": "Aprende la estructura de la gramática japonesa",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./media/icon-gramatica.jpg",
+      "sizes": "512x512",
+      "type": "image/jpg"
+    }
+  ]
+}
