@@ -62,7 +62,7 @@
         "status": "locked",
         "theory": {
           "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Raíz Adj-I] <span class='color-verbo'>くない です</span>",
-          "explanation": "Los adjetivos que terminan en い (i) tienen su propia regla de conjugación. Para hacerlos negativos, quitas la 'い' final y añades 'くない' (kunai).",
+          "explanation": "Los adjetivos que terminan en い (i) tienen su propia regla de conjugación. Para hacerlos negativos, quitas la 'い' final y añades 'くない' (kunai). Excepción: 'ii' (bueno) se convierte en 'yokunai'.",
           "examples": [
             {
               "ja": "この<ruby>本<rt>ほん</rt></ruby>は<ruby>高<rt>たか</rt></ruby>いです。",
@@ -89,6 +89,125 @@
                 "ja_template": "映画 は 面白[?] です。",
                 "expected": "くない",
                 "distractors": ["い", "ではない", "かった"]
+            },
+            {
+                "type": "classifier",
+                "instruction": "Clasifica el estado del adjetivo",
+                "categories": ["Afirmativo (-i)", "Negativo (-kunai)"],
+                "items": [
+                    { "word": "新しい です", "expected": "Afirmativo (-i)", "rule": "Mantiene la 'i' final antes del desu." },
+                    { "word": "大きくない です", "expected": "Negativo (-kunai)", "rule": "Ha cambiado su terminación a kunai." },
+                    { "word": "高くない です", "expected": "Negativo (-kunai)", "rule": "Significa 'no es caro/alto'." }
+                ]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_1_3",
+        "theme_title": "Adjetivos tipo NA (な)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> [Adj-NA] <span class='color-verbo'>ではありません</span>",
+          "explanation": "Los adjetivos tipo NA (como しずか - tranquilo) son diferentes: se comportan exactamente igual que los sustantivos. Para negarlos, NO usas 'kunai', usas ではありません (dewa arimasen). La 'na' solo aparece cuando se pegan a un sustantivo.",
+          "examples": [
+            {
+              "ja": "ここは<ruby>静<rt>しず</rt></ruby>かです。",
+              "romaji": "Koko wa shizuka desu.",
+              "es": "Aquí es tranquilo."
+            },
+            {
+              "ja": "ここは<ruby>静<rt>しず</rt></ruby>かではありません。",
+              "romaji": "Koko wa shizuka dewa arimasen.",
+              "es": "Aquí no es tranquilo."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "El profesor no es amable (Shinsetsu).",
+                "ja_template": "先生 は 親切 [?]。",
+                "expected": "ではありません",
+                "distractors": ["くないです", "です", "くない"]
+            },
+            {
+                "type": "scramble",
+                "es": "La habitación no es tranquila.",
+                "expected": ["部屋", "は", "静か", "ではありません"],
+                "distractors": ["くない", "です"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_1_4",
+        "theme_title": "Demostrativos (Kosoado)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-objeto'>これ / それ / あれ</span> <span class='color-particula'>は</span>",
+          "explanation": "Kore (Esto - cerca de ti), Sore (Eso - cerca del otro), Are (Aquello - lejos de ambos). Si quieres apuntar a un sustantivo (Este libro), cambian a Kono, Sono, Ano + Sustantivo.",
+          "examples": [
+            {
+              "ja": "これはペンです。",
+              "romaji": "Kore wa pen desu.",
+              "es": "Esto es un bolígrafo."
+            },
+            {
+              "ja": "その<ruby>本<rt>ほん</rt></ruby>は<ruby>高<rt>たか</rt></ruby>いです。",
+              "romaji": "Sono hon wa takai desu.",
+              "es": "Ese libro es caro."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "scramble",
+                "es": "Esto es un coche.",
+                "expected": ["これ", "は", "車", "です"],
+                "distractors": ["この", "それ"]
+            },
+            {
+                "type": "cloze",
+                "es": "Ese libro (cerca de ti) es caro.",
+                "ja_template": "[?] 本 は 高い です。",
+                "expected": "その",
+                "distractors": ["それ", "この", "あの"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_1_5",
+        "theme_title": "Partículas de conexión",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-sujeto'>[A]</span> <span class='color-particula'>も</span> | <span class='color-sujeto'>[A]</span> <span class='color-particula'>と</span> <span class='color-sujeto'>[B]</span>",
+          "explanation": "も (Mo) significa 'también' y sustituye a 'wa'. <br>と (To) significa 'y' (solo para unir sustantivos). <br>の (No) marca propiedad, 'A no B' significa 'El B de A'.",
+          "examples": [
+            {
+              "ja": "<ruby>私<rt>わたし</rt></ruby>も<ruby>学生<rt>がくせい</rt></ruby>です。",
+              "romaji": "Watashi mo gakusei desu.",
+              "es": "Yo también soy estudiante."
+            },
+            {
+              "ja": "これは<ruby>私<rt>わたし</rt></ruby>のペンです。",
+              "romaji": "Kore wa watashi no pen desu.",
+              "es": "Este es mi bolígrafo (El bolígrafo de mí)."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Yo también soy español.",
+                "ja_template": "私 [?] スペイン人 です。",
+                "expected": "も",
+                "distractors": ["は", "と", "の"]
+            },
+            {
+                "type": "cloze",
+                "es": "El coche del Sr. Tanaka.",
+                "ja_template": "田中さん [?] 車",
+                "expected": "の",
+                "distractors": ["は", "と", "も"]
             }
         ]
       },
@@ -96,29 +215,35 @@
         "theme_id": "cp_g_01",
         "type": "checkpoint",
         "theme_title": "Examen: Bloque 1",
-        "requires_count": 2,
+        "requires_count": 5,
         "items": [
            {
                 "type": "scramble",
-                "es": "El gato no es grande.",
-                "expected": ["猫", "は", "大きくない", "です"],
-                "distractors": ["大きい", "ではありません", "が"]
+                "es": "Ese coche (lejos) no es nuevo.",
+                "expected": ["あの", "車", "は", "新しくない", "です"],
+                "distractors": ["あれ", "ではありません", "が"]
             },
             {
                 "type": "cloze",
-                "es": "Yo no soy profesor.",
-                "ja_template": "私 [?] 先生 ではありません。",
-                "expected": "は",
+                "es": "La habitación del profesor no es tranquila.",
+                "ja_template": "先生 [?] 部屋 は 静か ではありません。",
+                "expected": "の",
                 "distractors": ["が", "を", "に", "で"]
             },
             {
                  "type": "reading_comprehension",
-                 "ja_text": "私の名前は田中です。学生ではありません。会社員です。私の車は新しくないですが、とても速いです。",
+                 "ja_text": "<ruby>私<rt>わたし</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>は<ruby>田中<rt>たなか</rt></ruby>です。<ruby>学生<rt>がくせい</rt></ruby>ではありません。<ruby>会社員<rt>かいしゃいん</rt></ruby>です。その<ruby>車<rt>くるま</rt></ruby>は<ruby>私<rt>わたし</rt></ruby>のです。<ruby>新<rt>あたら</rt></ruby>しくないですが、とても<ruby>速<rt>はや</rt></ruby>いです。",
+                 "romaji_support": "Watashi no namae wa Tanaka desu. Gakusei dewa arimasen. Kaishain desu. Sono kuruma wa watashi no desu. Atarashikunai desu ga, totemo hayai desu.",
                  "questions": [
                      {
                          "question": "¿Cuál es la profesión de Tanaka?",
                          "options": ["Estudiante", "Profesor", "Empleado de empresa (会社員)"],
                          "expected": "Empleado de empresa (会社員)"
+                     },
+                     {
+                         "question": "¿De quién es el coche del que habla?",
+                         "options": ["Del profesor.", "Suyo (de Tanaka).", "No se sabe."],
+                         "expected": "Suyo (de Tanaka)."
                      },
                      {
                          "question": "¿Cómo describe Tanaka su coche?",
