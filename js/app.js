@@ -40,37 +40,62 @@ const loadGrammarData = async () => {
 
 const renderDashboard = () => {
     let html = '<div class="space-y-8 fade-in pt-4">';
+    
+    // Bandera para saber si el bloque anterior fue superado por completo (Examen incluido)
+    let isPreviousBlockCleared = true; 
+
     grammarData.forEach(block => {
         html += `
             <section>
-                <h2 class="font-extrabold text-xl text-slate-900 mb-4 tracking-tight px-1">${block.block_title}</h2>
+                <h2 class="font-extrabold text-xl text-slate-900 mb-4 tracking-tight px-1 ${!isPreviousBlockCleared ? 'opacity-40' : ''}">${block.block_title}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         `;
         
-        block.themes.forEach(theme => {
+        // Variables para controlar el progreso interno del bloque
+        const normalThemes = block.themes.filter(t => t.type !== 'checkpoint');
+        const completedNormalThemesCount = normalThemes.filter(t => appState.completed_themes.includes(t.theme_id)).length;
+        
+        let previousThemeCompleted = true; // El primer tema del bloque activo siempre está desbloqueado
+
+        block.themes.forEach((theme, index) => {
             const isCompleted = appState.completed_themes.includes(theme.theme_id);
-            const isLocked = theme.status === 'locked' && !isCompleted;
             const isBookmarked = appState.bookmarks.includes(theme.theme_id);
             const isCheckpoint = theme.type === 'checkpoint';
             
+            // LÓGICA DE BLOQUEO DINÁMICA:
+            let isLocked = true;
+            
+            if (!isPreviousBlockCleared) {
+                // Si no has pasado el bloque anterior, todo este bloque está cerrado
+                isLocked = true;
+            } else if (isCheckpoint) {
+                // El Checkpoint SOLO se abre si TODOS los temas normales del bloque están completados
+                isLocked = completedNormalThemesCount < normalThemes.length;
+            } else {
+                // Un tema normal se abre si el tema Inmediatamente Anterior está completado
+                isLocked = !previousThemeCompleted;
+            }
+
             if (isCheckpoint) {
                 // Diseño especial para el Checkpoint
                 html += `
-                    <div class="theme-card md:col-span-2 p-5 rounded-2xl border-2 ${isLocked ? 'border-slate-200 bg-slate-50 opacity-70' : 'border-amber-400 bg-gradient-to-r from-amber-50 to-orange-50 shadow-md hover:shadow-lg cursor-pointer'} transition-all flex items-center justify-between" data-id="${theme.theme_id}" data-locked="${isLocked}">
+                    <div class="theme-card md:col-span-2 p-5 rounded-2xl border-2 ${isLocked ? 'border-slate-200 bg-slate-50 opacity-50' : 'border-amber-400 bg-gradient-to-r from-amber-50 to-orange-50 shadow-md hover:shadow-lg cursor-pointer'} transition-all flex items-center justify-between" data-id="${theme.theme_id}" data-locked="${isLocked}">
                         <div>
                             <h3 class="font-bold ${isLocked ? 'text-slate-500' : 'text-amber-700'} flex items-center gap-2 text-lg">
                                 ${isLocked ? '<i data-lucide="lock" class="w-6 h-6"></i>' : '<i data-lucide="award" class="w-6 h-6"></i>'}
                                 ${theme.theme_title}
                             </h3>
-                            <p class="text-xs ${isLocked ? 'text-slate-400' : 'text-amber-600'} mt-1 uppercase font-bold tracking-wider">Supera con 100% para desbloquear</p>
+                            <p class="text-xs ${isLocked ? 'text-slate-400' : 'text-amber-600'} mt-1 uppercase font-bold tracking-wider">${isLocked ? 'Completa los temas anteriores' : 'Supera con 100% para avanzar'}</p>
                         </div>
                         ${isCompleted ? '<span class="bg-amber-400 text-white p-2 rounded-full shadow-sm"><i data-lucide="check-check" class="w-5 h-5"></i></span>' : ''}
                     </div>
                 `;
+                // Actualizar bandera global para el siguiente iterador de bloque
+                isPreviousBlockCleared = isCompleted; 
             } else {
                 // Diseño normal de tema
                 html += `
-                    <div class="theme-card bg-white p-5 rounded-2xl border ${isLocked ? 'border-slate-100 opacity-60' : 'border-slate-200 hover:border-indigo-300 shadow-sm cursor-pointer active:scale-[0.98]'} transition-all relative overflow-hidden" data-id="${theme.theme_id}" data-locked="${isLocked}">
+                    <div class="theme-card bg-white p-5 rounded-2xl border ${isLocked ? 'border-slate-100 bg-slate-50 opacity-50' : 'border-slate-200 hover:border-indigo-300 shadow-sm cursor-pointer active:scale-[0.98]'} transition-all relative overflow-hidden" data-id="${theme.theme_id}" data-locked="${isLocked}">
                         ${isBookmarked ? '<div class="absolute top-0 right-3 w-4 h-6 bg-amber-400 rounded-b-md shadow-sm"></div>' : ''}
                         <div class="flex justify-between items-start mb-1">
                             <h3 class="font-bold text-slate-800 flex items-center gap-2 text-lg">
@@ -82,6 +107,8 @@ const renderDashboard = () => {
                         <p class="text-sm text-slate-500 mt-2">${isLocked ? 'Bloqueado' : 'Pulsa para aprender la teoría'}</p>
                     </div>
                 `;
+                // El estado de este tema dicta si el siguiente se abre
+                previousThemeCompleted = isCompleted;
             }
         });
         html += '</div></section>';
@@ -93,7 +120,10 @@ const renderDashboard = () => {
 
     document.querySelectorAll('.theme-card').forEach(card => {
         card.addEventListener('click', (e) => {
-            if (e.currentTarget.dataset.locked === 'true') return;
+            if (e.currentTarget.dataset.locked === 'true') {
+                alert("Debes completar el contenido anterior primero.");
+                return;
+            }
             const themeId = e.currentTarget.dataset.id;
             const theme = grammarData.flatMap(b => b.themes).find(t => t.theme_id === themeId);
             
@@ -204,37 +234,24 @@ const handleCompletion = (theme) => {
     
     if (errorsInCurrentTheme > 0) {
         alert(`Has cometido ${errorsInCurrentTheme} errores. Debes conseguir el 100% de aciertos.`);
-        if (isCheckpoint) return renderDashboard(); // El checkpoint te echa
-        else { currentExIndex = 0; errorsInCurrentTheme = 0; return renderExercise(theme); } // El tema normal te hace repetir
+        if (isCheckpoint) return renderDashboard(); 
+        else { currentExIndex = 0; errorsInCurrentTheme = 0; return renderExercise(theme); } 
     }
 
     // Victoria 100%
     if (!appState.completed_themes.includes(theme.theme_id)) {
         appState.completed_themes.push(theme.theme_id);
     }
+    
+    saveProgress(appState);
 
-    // Si superó un Checkpoint, desbloquear el siguiente bloque
     if (isCheckpoint) {
         alert("¡EXAMEN SUPERADO! Has desbloqueado el siguiente bloque gramatical.");
-        
-        // Encontrar el bloque actual
-        let currentBlockIndex = grammarData.findIndex(b => b.themes.some(t => t.theme_id === theme.theme_id));
-        if (currentBlockIndex >= 0 && currentBlockIndex < grammarData.length - 1) {
-            // Desbloquear todos los temas iniciales (status = locked -> unlocked) del siguiente bloque 
-            // Modificamos esto en appState, no en el JSON original
-            const nextBlock = grammarData[currentBlockIndex + 1];
-            nextBlock.themes.forEach(t => {
-                if(t.status === 'locked' && !appState.completed_themes.includes(t.theme_id)) {
-                    // Hack temporal: como el desbloqueo real depende de superar el tema ANTERIOR, 
-                    // simplemente guardamos el Checkpoint como completado y el dashboard hará el resto.
-                }
-            });
-        }
     } else {
         alert("¡Práctica completada con éxito!");
     }
     
-    saveProgress(appState);
+    // Forzar redibujado con los bloqueos calculados de nuevo
     renderDashboard();
 };
 
@@ -316,7 +333,6 @@ const renderReadingComprehension = (theme, ex) => {
     renderSubQuestion();
 };
 
-// --- MÉTODOS ANTERIORES INTACTOS ---
 const renderScrambleExercise = (theme, ex) => {
     let tiles = [...ex.expected];
     if (ex.distractors) tiles = tiles.concat(ex.distractors);
@@ -326,7 +342,7 @@ const renderScrambleExercise = (theme, ex) => {
         <div class="fade-in max-w-xl mx-auto w-full pt-4 pb-24 flex flex-col h-[85vh]">
             <header class="flex items-center justify-between mb-8 px-2">
                 <button id="btn-quit-ex" class="p-2 text-slate-400 hover:text-slate-700 bg-white rounded-full shadow-sm"><i data-lucide="x"></i></button>
-                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Paso 1: Puzzle Estructural</span>
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Puzzle Estructural</span>
                 <span class="text-xs font-mono font-bold text-slate-400">${currentExIndex + 1}/${currentExercises.length}</span>
             </header>
 
@@ -551,9 +567,6 @@ const renderClassifierExercise = (theme, ex) => {
 };
 
 const setupSettingsModal = () => {
-    // ... (El modal de Ajustes se queda exactamente igual que lo tenías)
-    // Por brevedad en esta respuesta no pego las 50 líneas del modal, 
-    // pero mantén el código de setupSettingsModal() que ya tenías funcionando.
     document.getElementById('btn-settings').addEventListener('click', () => {
         if (document.getElementById('settings-modal')) return;
         

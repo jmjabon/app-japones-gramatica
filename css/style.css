@@ -1,7 +1,7 @@
 /* Control de visualización global */
-body:not(.show-furigana) rt { display: none; }
-body:not(.show-romaji) .romaji-text { display: none; }
-body:not(.show-es) .es-text { display: none; }
+body:not(.show-furigana) rt { display: none !important; visibility: hidden !important; }
+body:not(.show-romaji) .romaji-text { display: none !important; }
+body:not(.show-es) .es-text { display: none !important; }
 
 ruby { ruby-position: over; }
 rt { font-size: 0.65em; color: #64748b; font-weight: 600; user-select: none; }
