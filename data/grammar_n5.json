@@ -656,5 +656,196 @@
         ]
       }
     ]
+  },
+  {
+    "block_id": "g_block_04",
+    "block_title": "Bloque 4: Permisos, Prohibiciones y Deseos",
+    "themes": [
+      {
+        "theme_id": "g_tema_4_1",
+        "theme_title": "Pedir Permiso",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-Forma TE]</span> <span class='color-particula'>も</span> <span class='color-verbo'>いいですか</span>",
+          "explanation": "Para pedir permiso para hacer algo, se usa el verbo en Forma TE seguido de 'mo ii desu ka' (literalmente: '¿Incluso si hago X, está bien?').",
+          "examples": [
+            {
+              "ja": "ここで<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮<rt>と</rt></ruby>ってもいいですか。",
+              "romaji": "Koko de shashin o totte mo ii desu ka.",
+              "es": "¿Puedo hacer fotos aquí?"
+            },
+            {
+              "ja": "はい、いいですよ。",
+              "romaji": "Hai, ii desu yo.",
+              "es": "Sí, está bien. (Respuesta positiva)"
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "scramble",
+                "es": "¿Puedo sentarme aquí?",
+                "expected": ["ここ", "に", "座って", "も", "いいですか"],
+                "distractors": ["は", "座ります"]
+            },
+            {
+                "type": "cloze",
+                "es": "¿Puedo ver la televisión?",
+                "ja_template": "テレビ を 見て [?] いいですか。",
+                "expected": "も",
+                "distractors": ["は", "が", "を"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_4_2",
+        "theme_title": "Prohibiciones Fuertes",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-Forma TE]</span> <span class='color-particula'>は</span> <span class='color-verbo'>いけません</span>",
+          "explanation": "Para indicar que algo está prohibido o que no se debe hacer bajo ninguna circunstancia, se usa la Forma TE seguida de 'wa ikemasen'.",
+          "examples": [
+            {
+              "ja": "ここでタバコを<ruby>吸<rt>す</rt></ruby>ってはいけません。",
+              "romaji": "Koko de tabako o sutte wa ikemasen.",
+              "es": "No debes fumar aquí."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "No debes beber alcohol.",
+                "ja_template": "お酒 を 飲んで [?] いけません。",
+                "expected": "は",
+                "distractors": ["が", "も", "を"]
+            },
+            {
+                "type": "forge",
+                "instruction": "Construye la prohibición (No debes entrar)",
+                "es": "Entrar (hairimasu - G1)",
+                "base": "はい",
+                "expected": "ってはいけません",
+                "options": ["ってはいけません", "んでいいですか", "てはいいです", "てください"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_4_3",
+        "theme_title": "Expresar Deseo",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-raíz masu]</span> <span class='color-verbo'>たいです</span>",
+          "explanation": "Para decir 'Quiero hacer [X]', quita el 'masu' del verbo y añade 'tai desu' (ej. tabe-masu -> tabe-tai desu). ¡Importante! Esta forma se conjuga exactamente igual que un Adjetivo tipo I (negativo: takunai desu).",
+          "examples": [
+            {
+              "ja": "わたしは<ruby>日本<rt>にほん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きたいです。",
+              "romaji": "Watashi wa nihon e ikitai desu.",
+              "es": "Quiero ir a Japón."
+            },
+            {
+              "ja": "なにも<ruby>食<rt>た</rt></ruby>べたくないです。",
+              "romaji": "Nani mo tabetakunai desu.",
+              "es": "No quiero comer nada."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "No quiero beber agua.",
+                "ja_template": "水 を 飲み[?] です。",
+                "expected": "たくない",
+                "distractors": ["たい", "たくありません", "ません"]
+            },
+            {
+                "type": "scramble",
+                "es": "Quiero ver una película.",
+                "expected": ["映画", "を", "見たい", "です"],
+                "distractors": ["見ます", "たくない"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_4_4",
+        "theme_title": "Movimiento con Propósito",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-raíz masu / Sust]</span> <span class='color-particula'>に</span> <span class='color-verbo'>行きます</span>",
+          "explanation": "Para expresar 'Voy a [hacer algo]', usa la raíz del verbo (sin masu) o un sustantivo de acción, añade la partícula に (ni) y el verbo de movimiento (ikimasu, kimasu, kaerimasu).",
+          "examples": [
+            {
+              "ja": "デパートへくつを<ruby>買<rt>か</rt></ruby>いに<ruby>行<rt>い</rt></ruby>きます。",
+              "romaji": "Depaato e kutsu o kai ni ikimasu.",
+              "es": "Voy a los grandes almacenes a comprar zapatos."
+            },
+            {
+              "ja": "<ruby>日本<rt>にほん</rt></ruby>へ<ruby>勉強<rt>べんきょう</rt></ruby>に<ruby>来<rt>き</rt></ruby>ました。",
+              "romaji": "Nihon e benkyou ni kimashita.",
+              "es": "Vine a Japón a estudiar."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Voy a Tokio a jugar.",
+                "ja_template": "東京 へ 遊び [?] 行きます。",
+                "expected": "に",
+                "distractors": ["を", "が", "で"]
+            },
+            {
+                "type": "scramble",
+                "es": "Fui al restaurante a comer.",
+                "expected": ["レストラン", "へ", "食べ", "に", "行きました"],
+                "distractors": ["て", "食べます"]
+            }
+        ]
+      },
+      {
+        "theme_id": "cp_g_04",
+        "type": "checkpoint",
+        "theme_title": "Examen: Bloque 4",
+        "requires_count": 4,
+        "items": [
+            {
+                "type": "cloze",
+                "es": "¿Puedo leer este libro?",
+                "ja_template": "この 本 を [?] もいいですか。",
+                "expected": "読んで",
+                "distractors": ["読みて", "読み", "読む"]
+            },
+            {
+                "type": "scramble",
+                "es": "No quiero ir a la escuela.",
+                "expected": ["学校", "へ", "行き", "たくない", "です"],
+                "distractors": ["て", "いけません"]
+            },
+            {
+                 "type": "reading_comprehension",
+                 "image": "https://images.unsplash.com/photo-1528164344705-47542687000d?q=80&w=600&auto=format&fit=crop",
+                 "ja_text": "あした、<ruby>友<rt>とも</rt></ruby>だちと<ruby>海<rt>うみ</rt></ruby>へ<ruby>泳<rt>およ</rt></ruby>ぎに<ruby>行<rt>い</rt></ruby>きたいです。でも、<ruby>今日<rt>きょう</rt></ruby>は<ruby>風邪<rt>かぜ</rt></ruby>をひきましたから、<ruby>外<rt>そと</rt></ruby>へ<ruby>出<rt>で</rt></ruby>てはいけません。うちで<ruby>寝<rt>ね</rt></ruby>ます。",
+                 "romaji_support": "Ashita, tomodachi to umi e oyogi ni ikitai desu. Demo, kyou wa kaze o hikimashita kara, soto e dete wa ikemasen. Uchi de nemasu.",
+                 "questions": [
+                     {
+                         "question": "¿Qué desea hacer mañana?",
+                         "options": ["Ir a la playa a nadar con amigos.", "Ir al hospital.", "Dormir en casa."],
+                         "expected": "Ir a la playa a nadar con amigos."
+                     },
+                     {
+                         "question": "¿Por qué no puede salir de casa?",
+                         "options": ["Porque está lloviendo.", "Porque ha pillado un resfriado (風邪).", "Porque no quiere."],
+                         "expected": "Porque ha pillado un resfriado (風邪)."
+                     },
+                     {
+                         "question": "¿Qué significa \"出てはいけません\" en este contexto?",
+                         "options": ["No quiero salir.", "No debo salir.", "Voy a salir."],
+                         "expected": "No debo salir."
+                     }
+                 ]
+            }
+        ]
+      }
+    ]
   }
 ]
