@@ -457,5 +457,204 @@
         ]
       }
     ]
+  },
+  {
+    "block_id": "g_block_03",
+    "block_title": "Bloque 3: La Forma TE",
+    "themes": [
+      {
+        "theme_id": "g_tema_3_1",
+        "theme_title": "Reglas de la Forma TE",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>G1: -って, -んで, -いて...</span> | <span class='color-verbo'>G2: -て</span>",
+          "explanation": "La Forma TE conecta verbos y crea estructuras avanzadas. <br><br><b>Grupo 2:</b> Quita 'masu' y pon 'te' (tabe-te).<br><b>Grupo 3:</b> shimasu -> shite, kimasu -> kite.<br><b>Grupo 1 (La regla dura):</b> Depende de la sílaba antes de masu:<br>- i, chi, ri -> って (tte)<br>- mi, bi, ni -> んで (nde)<br>- ki -> いて (ite) / gi -> いで (ide)<br><i>*Excepción: ikimasu (ir) -> itte.</i>",
+          "examples": [
+            {
+              "ja": "見ます -> <ruby>見<rt>み</rt></ruby>て",
+              "romaji": "mimasu -> mite",
+              "es": "Mirar (G2: directo a 'te')"
+            },
+            {
+              "ja": "飲みます -> <ruby>飲<rt>の</rt></ruby>んで",
+              "romaji": "nomimasu -> nonde",
+              "es": "Beber (G1: 'mi' cambia a 'nde')"
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "classifier",
+                "instruction": "Clasifica cómo termina la Forma TE de estos verbos del Grupo 1",
+                "categories": ["-って (tte)", "-んで (nde)", "-いて/いで (ite/ide)"],
+                "items": [
+                    { "word": "買います (kai-masu)", "expected": "-って (tte)", "rule": "Termina en 'i', por lo que cambia a 'tte' (katte)." },
+                    { "word": "読みます (yomi-masu)", "expected": "-んで (nde)", "rule": "Termina en 'mi', por lo que cambia a 'nde' (yonde)." },
+                    { "word": "聞きます (kiki-masu)", "expected": "-いて/いで (ite/ide)", "rule": "Termina en 'ki', por lo que cambia a 'ite' (kiite)." },
+                    { "word": "待ちます (machi-masu)", "expected": "-って (tte)", "rule": "Termina en 'chi', por lo que cambia a 'tte' (matte)." }
+                ]
+            },
+            {
+                "type": "forge",
+                "instruction": "Forja la Forma TE correcta",
+                "es": "Beber (nomimasu)",
+                "base": "の",
+                "expected": "んで",
+                "options": ["って", "んで", "いて", "て"]
+            },
+            {
+                "type": "forge",
+                "instruction": "Forja la Forma TE correcta",
+                "es": "Comer (tabemasu - G2)",
+                "base": "たべ",
+                "expected": "て",
+                "options": ["って", "んで", "いて", "て"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_3_2",
+        "theme_title": "Peticiones (〜てください)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-Forma TE]</span> <span class='color-verbo'>ください</span>",
+          "explanation": "Al añadir ください (kudasai) después de un verbo en Forma TE, estás haciendo una petición formal amable: 'Por favor, haz [X]'.",
+          "examples": [
+            {
+              "ja": "ちょっと<ruby>待<rt>ま</rt></ruby>ってください。",
+              "romaji": "Chotto matte kudasai.",
+              "es": "Por favor, espere un momento."
+            },
+            {
+              "ja": "この<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>んでください。",
+              "romaji": "Kono hon o yonde kudasai.",
+              "es": "Por favor, lea este libro."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "scramble",
+                "es": "Por favor, coma sushi.",
+                "expected": ["お寿司", "を", "食べて", "ください"],
+                "distractors": ["は", "て"]
+            },
+            {
+                "type": "cloze",
+                "es": "Por favor, mire esto.",
+                "ja_template": "これ を 見[?] ください。",
+                "expected": "て",
+                "distractors": ["って", "んで", "いて"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_3_3",
+        "theme_title": "Acciones en curso (〜ています)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V-Forma TE]</span> <span class='color-verbo'>います</span>",
+          "explanation": "La Forma TE + います (imasu) equivale al gerundio en español ('estoy comiendo'). También se usa para estados continuos (ej. 'estar casado' o 'vivir en un lugar').",
+          "examples": [
+            {
+              "ja": "今、<ruby>昼<rt>ひる</rt></ruby>ごはんを<ruby>食<rt>た</rt></ruby>べています。",
+              "romaji": "Ima, hirugohan o tabete imasu.",
+              "es": "Ahora estoy comiendo el almuerzo."
+            },
+            {
+              "ja": "<ruby>東京<rt>とうきょう</rt></ruby>に<ruby>住<rt>す</rt></ruby>んでいます。",
+              "romaji": "Toukyou ni sunde imasu.",
+              "es": "Vivo (estoy viviendo) en Tokio."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Ahora estoy leyendo un libro.",
+                "ja_template": "今、本 を 読んで [?]。",
+                "expected": "います",
+                "distractors": ["ください", "あります", "です"]
+            },
+            {
+                "type": "scramble",
+                "es": "Estoy bebiendo café.",
+                "expected": ["コーヒー", "を", "飲んで", "います"],
+                "distractors": ["飲んでください", "が"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_3_4",
+        "theme_title": "Secuencias de acción",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>[V1-Forma TE]</span>、 <span class='color-verbo'>[V2-ます]</span>",
+          "explanation": "Para decir 'Hago A y luego hago B', pones el primer verbo en Forma TE y el último verbo en la forma y tiempo normal (masu/mashita). El último verbo decide el tiempo de toda la frase.",
+          "examples": [
+            {
+              "ja": "<ruby>朝<rt>あさ</rt></ruby>ごはんでパンを<ruby>食<rt>た</rt></ruby>べて、コーヒーを<ruby>飲<rt>の</rt></ruby>みます。",
+              "romaji": "Asagohan de pan o tabete, koohii o nomimasu.",
+              "es": "Para desayunar como pan y (luego) bebo café."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Ayer compré un libro y volví a casa.",
+                "ja_template": "きのう、本 を 買っ[?]、 家 へ 帰りました。",
+                "expected": "て",
+                "distractors": ["ます", "ました", "で"]
+            },
+            {
+                "type": "scramble",
+                "es": "Me levanto a las 7 y voy a la escuela.",
+                "expected": ["７時", "に", "起きて、", "学校", "へ", "行きます"],
+                "distractors": ["起きます", "で"]
+            }
+        ]
+      },
+      {
+        "theme_id": "cp_g_03",
+        "type": "checkpoint",
+        "theme_title": "Examen: Bloque 3",
+        "requires_count": 4,
+        "items": [
+           {
+                "type": "forge",
+                "instruction": "Forja la Forma TE correcta",
+                "es": "Hablar (hanashimasu)",
+                "base": "はな",
+                "expected": "して",
+                "options": ["して", "って", "んで", "いて"]
+            },
+            {
+                "type": "scramble",
+                "es": "Por favor, beba agua.",
+                "expected": ["お水", "を", "飲んで", "ください"],
+                "distractors": ["飲みます", "は"]
+            },
+            {
+                 "type": "reading_comprehension",
+                 "image": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=600&auto=format&fit=crop",
+                 "ja_text": "<ruby>毎朝<rt>まいあさ</rt></ruby>６<ruby>時<rt>じ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きて、コーヒーを<ruby>飲<rt>の</rt></ruby>みます。それから、<ruby>電車<rt>でんしゃ</rt></ruby>で<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。<ruby>今<rt>いま</rt></ruby>、<ruby>会社<rt>かいしゃ</rt></ruby>でレポートを<ruby>書<rt>か</rt></ruby>いています。",
+                 "romaji_support": "Maiasa rokuji ni okite, koohii o nomimasu. Sorekara, densha de kaisha e ikimasu. Ima, kaisha de repooto o kaite imasu.",
+                 "questions": [
+                     {
+                         "question": "¿Qué hace justo después de levantarse?",
+                         "options": ["Va a la empresa.", "Bebe café.", "Escribe un informe."],
+                         "expected": "Bebe café."
+                     },
+                     {
+                         "question": "¿Qué está haciendo en este preciso momento (今)?",
+                         "options": ["Escribiendo un informe.", "Bebiendo café.", "Viajando en tren."],
+                         "expected": "Escribiendo un informe."
+                     }
+                 ]
+            }
+        ]
+      }
+    ]
   }
 ]
