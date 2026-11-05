@@ -459,6 +459,29 @@
     ]
   },
   {
+    "block_id": "g_block_midterm",
+    "block_title": "EVALUACIÓN: Mitad de Nivel N5",
+    "themes": [
+      {
+        "theme_id": "cp_g_midterm",
+        "type": "global_exam",
+        "theme_title": "Simulacro: Bloques 1 y 2",
+        "status": "locked",
+        "requires_count": 0,
+        "exam_config": {
+            "source_blocks": ["g_block_01", "g_block_02"],
+            "total_questions": 12
+        },
+        "theory": {
+            "formula": "<span class='color-objeto'>[ SIMULACRO ALEATORIO ]</span>",
+            "explanation": "Has llegado a la mitad del nivel N5. Este examen generará 12 preguntas al azar de los Bloques 1 y 2. Debes conseguir el 100% para demostrar que dominas la cópula, los adjetivos y los tiempos formales de los verbos antes de enfrentarte a la Forma TE.",
+            "examples": []
+        },
+        "exercises": []
+      }
+    ]
+  },
+  {
     "block_id": "g_block_03",
     "block_title": "Bloque 3: La Forma TE",
     "themes": [
@@ -841,6 +864,81 @@
                          "question": "¿Qué significa \"出てはいけません\" en este contexto?",
                          "options": ["No quiero salir.", "No debo salir.", "Voy a salir."],
                          "expected": "No debo salir."
+                     }
+                 ]
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "block_id": "g_block_final",
+    "block_title": "EVALUACIÓN FINAL JLPT N5",
+    "themes": [
+      {
+        "theme_id": "cp_g_final_random",
+        "type": "global_exam",
+        "theme_title": "Simulacro Aleatorio N5",
+        "status": "locked",
+        "requires_count": 0,
+        "exam_config": {
+            "source_blocks": ["g_block_01", "g_block_02", "g_block_03", "g_block_04"],
+            "total_questions": 20
+        },
+        "theory": {
+            "formula": "<span class='color-objeto'>[ RULETA DEL N5 ]</span>",
+            "explanation": "El simulacro definitivo. 20 preguntas extraídas al azar de todo el nivel N5. Pasarás de conjugar adjetivos a prohibiciones en cuestión de segundos. Entrena tu agilidad mental.",
+            "examples": []
+        },
+        "exercises": []
+      },
+      {
+        "theme_id": "cp_g_final_new",
+        "type": "checkpoint",
+        "theme_title": "Prueba de Maestría (Inédito)",
+        "status": "locked",
+        "requires_count": 1,
+        "items": [
+            {
+                "type": "scramble",
+                "es": "Ayer compré un libro, pero no lo leí.",
+                "expected": ["きのう、", "本", "を", "買って、", "読みませんでした"],
+                "distractors": ["読みます", "は"]
+            },
+            {
+                "type": "cloze",
+                "es": "No quiero beber té caliente.",
+                "ja_template": "熱い お茶 を [?] です。",
+                "expected": "飲みたくない",
+                "distractors": ["飲みたくないくない", "飲んで", "飲みません"]
+            },
+            {
+                "type": "forge",
+                "instruction": "Construye la prohibición (No debes hacer fotos)",
+                "es": "Hacer fotos (shashin o torimasu)",
+                "base": "と",
+                "expected": "ってはいけません",
+                "options": ["ってはいけません", "んではいけません", "てはいいです", "てください"]
+            },
+            {
+                 "type": "reading_comprehension",
+                 "ja_text": "<ruby>昨日<rt>きのう</rt></ruby>、デパートへ<ruby>新<rt>あたら</rt></ruby>しいかばんを<ruby>買<rt>か</rt></ruby>いに<ruby>行<rt>い</rt></ruby>きました。でも、とても<ruby>高<rt>たか</rt></ruby>かったですから、<ruby>買<rt>か</rt></ruby>いませんでした。そして、レストランでラーメンを<ruby>食<rt>た</rt></ruby>べて、うちへ<ruby>帰<rt>かえ</rt></ruby>りました。<ruby>今日<rt>きょう</rt></ruby>は<ruby>疲<rt>つか</rt></ruby>れましたから、どこも<ruby>行<rt>い</rt></ruby>きたくないです。",
+                 "romaji_support": "Kinou, depaato e atarashii kaban o kai ni ikimashita. Demo, totemo takakatta desu kara, kaimasen deshita. Soshite, resutoran de raamen o tabete, uchi e kaerimashita. Kyou wa tsukaremashita kara, doko mo ikitakunai desu.",
+                 "questions": [
+                     {
+                         "question": "¿Por qué no compró el bolso nuevo?",
+                         "options": ["Porque era muy caro.", "Porque no le gustaba.", "Porque la tienda estaba cerrada."],
+                         "expected": "Porque era muy caro."
+                     },
+                     {
+                         "question": "¿Qué secuencia de acciones hizo en realidad?",
+                         "options": ["Fue al gran almacén, comió ramen y volvió a casa.", "Compró un bolso, comió ramen y volvió a casa.", "Fue al restaurante y luego compró un bolso."],
+                         "expected": "Fue al gran almacén, comió ramen y volvió a casa."
+                     },
+                     {
+                         "question": "¿Qué quiere hacer hoy?",
+                         "options": ["No quiere ir a ningún sitio.", "Quiere volver al gran almacén.", "Quiere descansar en un restaurante."],
+                         "expected": "No quiere ir a ningún sitio."
                      }
                  ]
             }

@@ -136,17 +136,55 @@ const renderDashboard = () => {
     });
 };
 
+// En js/app.js, sustituye startPractice y añade generateGlobalExam
+
 const startPractice = (theme, exercisesArray) => {
-    if (!exercisesArray || exercisesArray.length === 0) {
-        alert('Aún no hay ejercicios configurados.');
-        return;
-    }
-    currentExercises = exercisesArray;
-    currentExIndex = 0;
     errorsInCurrentTheme = 0;
+    
+    // Intercepción para el Examen Global
+    if (theme.type === 'global_exam') {
+        currentExercises = generateGlobalExam(theme.exam_config);
+        if(currentExercises.length === 0) {
+            alert("No hay suficientes ejercicios previos completados para generar el simulacro.");
+            return;
+        }
+    } else {
+        if (!exercisesArray || exercisesArray.length === 0) {
+            alert('Aún no hay ejercicios configurados.');
+            return;
+        }
+        currentExercises = exercisesArray;
+    }
+    
+    currentExIndex = 0;
     renderExercise(theme);
 };
 
+// Nueva función para recolectar ejercicios
+const generateGlobalExam = (config) => {
+    let pool = [];
+    
+    // Recorre todos los bloques indicados en el JSON
+    grammarData.forEach(block => {
+        if(config.source_blocks.includes(block.block_id)) {
+            block.themes.forEach(theme => {
+                // Solo coge ejercicios de temas normales (no de otros checkpoints) 
+                // y que ya estén completados
+                if(theme.type !== 'checkpoint' && theme.type !== 'global_exam' && appState.completed_themes.includes(theme.theme_id)) {
+                   if(theme.exercises && theme.exercises.length > 0){
+                       pool = pool.concat(theme.exercises);
+                   }
+                }
+            });
+        }
+    });
+
+    // Baraja el pool completo
+    pool.sort(() => Math.random() - 0.5);
+    
+    // Retorna la cantidad solicitada (o menos si no hay suficientes)
+    return pool.slice(0, config.total_questions);
+};
 // --- MODO GUÍA (TEORÍA VISUAL) ---
 const renderGuideMode = (theme) => {
     const isBookmarked = appState.bookmarks.includes(theme.theme_id);

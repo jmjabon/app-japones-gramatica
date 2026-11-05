@@ -1,0 +1,40 @@
+[
+  {
+    "block_id": "g4_block_01",
+    "block_title": "Bloque 1: Condicionales y Supuestos (N4)",
+    "themes": [
+      {
+         "theme_id": "g4_tema_1_1",
+         "theme_title": "Condicional と (to)",
+         "status": "unlocked",
+         "theory": { "formula": "...", "explanation": "...", "examples": [] },
+         "exercises": [ ]
+      }
+    ]
+  },
+  {
+    "block_id": "g4_block_midterm",
+    "block_title": "EVALUACIÓN GLOBAL",
+    "themes": [
+      {
+        "theme_id": "cp_g4_midterm",
+        "type": "global_exam",
+        "theme_title": "Simulacro JLPT N4",
+        "status": "locked",
+        "requires_count": 0, 
+        "exam_config": {
+            "source_blocks": ["g4_block_01", "g4_block_02", "g4_block_03"],
+            "total_questions": 30,
+            "passing_score": 100,
+            "death_mode": false,
+        "theory": {
+            "formula": "SIMULACRO OFICIAL",
+            "explanation": "Este examen extrae preguntas aleatorias de todos los bloques completados. Prepárate para mezclar condicionales, pasivas, causativas y vocabulario.",
+            "examples": []
+        },
+        "exercises": [] 
+      }
+    }
+    ]
+  }
+]
