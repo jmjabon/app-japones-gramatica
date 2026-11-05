@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
   <title>KikuNihongo Gramática</title>
   
+  <!-- Etiquetas PWA y Web App (Crucial para iOS) -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Gramática">
+  
+  <!-- Iconos para iPad / iPhone (PWA) -->
+  <!-- Asegúrate de que tu archivo se llama exactamente icon-512.png en la carpeta media -->
+  <link rel="apple-touch-icon" href="./media/icon-512.png">
+  <link rel="icon" type="image/png" href="./media/icon-512.png">
+
+  <!-- Tailwind CSS & Lucide Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="./css/styles.css">
