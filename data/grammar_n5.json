@@ -256,7 +256,7 @@
       }
     ]
   },
-  {
+{
     "block_id": "g_block_02",
     "block_title": "Bloque 2: El Motor de la Acción",
     "themes": [
@@ -265,17 +265,196 @@
         "theme_title": "Los 3 Grupos de Verbos",
         "status": "locked",
         "theory": {
-           "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
+          "formula": "<span class='color-verbo'>G1: -u</span> | <span class='color-verbo'>G2: -iru/-eru</span> | <span class='color-verbo'>G3: Irreg.</span>",
           "explanation": "Para poder conjugar en japonés, primero debes saber a qué grupo pertenece el verbo en su forma de diccionario. G1 (Godan) termina en cualquier sílaba 'u'. G2 (Ichidan) termina siempre en 'iru' o 'eru'. G3 (Irregulares) solo son dos: する (hacer) y くる (venir).",
           "examples": [
             {
               "ja": "<ruby>飲<rt>の</rt></ruby>む",
               "romaji": "nomu (Termina en 'mu' -> G1)",
               "es": "Beber"
+            },
+            {
+              "ja": "<ruby>食<rt>た</rt></ruby>べる",
+              "romaji": "taberu (Termina en 'eru' -> G2)",
+              "es": "Comer"
             }
           ]
         },
-        "exercises": []
+        "exercises": [
+            {
+                "type": "classifier",
+                "instruction": "Clasifica el verbo en su grupo correspondiente",
+                "categories": ["Grupo 1 (Godan)", "Grupo 2 (Ichidan)", "Grupo 3 (Irregular)"],
+                "items": [
+                    { "word": "行く (iku)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'ku'. No es 'iru' ni 'eru', así que es Grupo 1." },
+                    { "word": "食べる (taberu)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina con sonido 'e' seguido de 'ru' (be-ru). Es Ichidan." },
+                    { "word": "する (suru)", "expected": "Grupo 3 (Irregular)", "rule": "¡El verbo hacer es el irregular por excelencia! Pertenece al Grupo 3." },
+                    { "word": "飲む (nomu)", "expected": "Grupo 1 (Godan)", "rule": "Termina en 'mu'. Al no terminar en 'ru', es automáticamente Grupo 1." },
+                    { "word": "見る (miru)", "expected": "Grupo 2 (Ichidan)", "rule": "Termina en sonido 'i' seguido de 'ru' (mi-ru). Es Ichidan." }
+                ]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_2_2",
+        "theme_title": "Presente Formal (〜ます)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-sujeto'>[Sujeto]</span> <span class='color-particula'>は</span> <span class='color-objeto'>[Objeto]</span> <span class='color-particula'>を</span> <span class='color-verbo'>V-ます / ません</span>",
+          "explanation": "La forma MASU (ます) indica presente/futuro formal. Para el negativo se usa MASEN (ません).<br><br><b>Regla:</b><br>- G1: Cambia el sonido 'u' final por 'i' (iku -> iki) + masu.<br>- G2: Quita 'ru' (taberu -> tabe) + masu.<br>- G3: suru -> shimasu, kuru -> kimasu.",
+          "examples": [
+            {
+              "ja": "<ruby>私<rt>わたし</rt></ruby>はリンゴを<ruby>食<rt>た</rt></ruby>べます。",
+              "romaji": "Watashi wa ringo o tabemasu.",
+              "es": "Yo como una manzana."
+            },
+            {
+              "ja": "お<ruby>酒<rt>さけ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みません。",
+              "romaji": "Osake o nomimasen.",
+              "es": "No bebo alcohol."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Yo leo un libro.",
+                "ja_template": "私 は 本 を 読み[?]。",
+                "expected": "ます",
+                "distractors": ["ません", "です", "む"]
+            },
+            {
+                "type": "classifier",
+                "instruction": "Identifica si la oración es afirmativa o negativa",
+                "categories": ["Afirmativa (masu)", "Negativa (masen)"],
+                "items": [
+                    { "word": "行きます", "expected": "Afirmativa (masu)", "rule": "Termina en ます." },
+                    { "word": "食べません", "expected": "Negativa (masen)", "rule": "Termina en ません." },
+                    { "word": "見ます", "expected": "Afirmativa (masu)", "rule": "Termina en ます." }
+                ]
+            },
+            {
+                "type": "scramble",
+                "es": "No bebo agua.",
+                "expected": ["水", "を", "飲みません"],
+                "distractors": ["は", "飲みます"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_2_3",
+        "theme_title": "Pasado Formal (〜ました)",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>V-ました / ませんでした</span>",
+          "explanation": "Para hablar en pasado formal, cambiamos ます por <b>ました</b> (mashita). Para el negativo en pasado, usamos <b>ませんでした</b> (masen deshita).",
+          "examples": [
+            {
+              "ja": "きのう、<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。",
+              "romaji": "Kinou, eiga o mimashita.",
+              "es": "Ayer, vi una película."
+            },
+            {
+              "ja": "なにも<ruby>食<rt>た</rt></ruby>べませんでした。",
+              "romaji": "Nani mo tabemasen deshita.",
+              "es": "No comí nada."
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "Ayer fui a Kioto.",
+                "ja_template": "きのう、京都 へ 行き[?]。",
+                "expected": "ました",
+                "distractors": ["ます", "ませんでした", "ません"]
+            },
+            {
+                "type": "scramble",
+                "es": "No vi la televisión.",
+                "expected": ["テレビ", "を", "見ませんでした"],
+                "distractors": ["見ました", "です"]
+            }
+        ]
+      },
+      {
+        "theme_id": "g_tema_2_4",
+        "theme_title": "Invitaciones y Propuestas",
+        "status": "locked",
+        "theory": {
+          "formula": "<span class='color-verbo'>V-ませんか / V-ましょう</span>",
+          "explanation": "Para invitar a alguien, usa la forma negativa interrogativa <b>ませんか</b> (masen ka) que significa '¿No te gustaría...?'. Para proponer hacer algo juntos, usa <b>ましょう</b> (mashou) que significa '¡Hagamos...! / Let's...'.",
+          "examples": [
+            {
+              "ja": "お<ruby>茶<rt>ちゃ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みませんか。",
+              "romaji": "Ocha o nomimasen ka.",
+              "es": "¿No te gustaría beber té verde?"
+            },
+            {
+              "ja": "はい、<ruby>飲<rt>の</rt></ruby>みましょう。",
+              "romaji": "Hai, nomimashou.",
+              "es": "Sí, ¡bebamos!"
+            }
+          ]
+        },
+        "exercises": [
+            {
+                "type": "cloze",
+                "es": "¿No te gustaría ir al cine?",
+                "ja_template": "映画 へ 行き[?]。",
+                "expected": "ませんか",
+                "distractors": ["ましょう", "ますか", "ましたか"]
+            },
+            {
+                "type": "scramble",
+                "es": "¡Comamos sushi!",
+                "expected": ["お寿司", "を", "食べましょう"],
+                "distractors": ["食べませんか", "が"]
+            }
+        ]
+      },
+      {
+        "theme_id": "cp_g_02",
+        "type": "checkpoint",
+        "theme_title": "Examen: Bloque 2",
+        "requires_count": 4,
+        "items": [
+           {
+                "type": "scramble",
+                "es": "Ayer no fui al parque.",
+                "expected": ["きのう", "公園", "へ", "行きませんでした"],
+                "distractors": ["行きました", "は", "が"]
+            },
+            {
+                "type": "cloze",
+                "es": "¿No te gustaría beber café?",
+                "ja_template": "コーヒー を 飲み[?]。",
+                "expected": "ませんか",
+                "distractors": ["ましょう", "ます", "ました"]
+            },
+            {
+                 "type": "reading_comprehension",
+                 "ja_text": "きのう、<ruby>山田<rt>やまだ</rt></ruby>さんとレストランへ<ruby>行<rt>い</rt></ruby>きました。お<ruby>寿司<rt>すし</rt></ruby>を<ruby>食<rt>た</rt></ruby>べました。おいしかったです。でも、お<ruby>酒<rt>さけ</rt></ruby>は<ruby>飲<rt>の</rt></ruby>みませんでした。あした、また<ruby>山田<rt>やまだ</rt></ruby>さんと<ruby>行<rt>い</rt></ruby>きます。",
+                 "romaji_support": "Kinou, Yamada-san to resutoran e ikimashita. Osushi o tabemashita. Oishikatta desu. Demo, osake wa nomimasen deshita. Ashita, mata Yamada-san to ikimasu.",
+                 "questions": [
+                     {
+                         "question": "¿Qué comieron en el restaurante?",
+                         "options": ["Sushi", "Carne", "Pescado asado"],
+                         "expected": "Sushi"
+                     },
+                     {
+                         "question": "¿Bebieron alcohol?",
+                         "options": ["Sí.", "No.", "No se sabe."],
+                         "expected": "No."
+                     },
+                     {
+                         "question": "¿Qué van a hacer mañana?",
+                         "options": ["Ir otra vez con Yamada.", "Ir solos.", "No hacer nada."],
+                         "expected": "Ir otra vez con Yamada."
+                     }
+                 ]
+            }
+        ]
       }
     ]
   }
